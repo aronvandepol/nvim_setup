@@ -94,3 +94,6 @@ require('p-cmp')
 require('p-lualine')
 
 
+-- Set the location of the spell file
+local spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+vim.opt.spellfile = spellfile
