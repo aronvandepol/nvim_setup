@@ -26,10 +26,20 @@ require("lazy").setup({
   'saadparwaiz1/cmp_luasnip',
   'nvim-treesitter/nvim-treesitter',
   "sainnhe/gruvbox-material",
+  "sainnhe/everforest",
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
   'WhoIsSethDaniel/mason-tool-installer.nvim',
+  {
+ "folke/trouble.nvim",
+ dependencies = { "nvim-tree/nvim-web-devicons" },
+ opts = {
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  -- refer to the configuration section below
+ },
+},
   {
     'stevearc/conform.nvim',
     opts={},
@@ -44,7 +54,7 @@ require("lazy").setup({
     {
     'nvim-telescope/telescope.nvim', tag = '0.1.5',
 -- or                              , branch = '0.1.x',
-      dependencies = { 'nvim-lua/plenary.nvim' }
+      dependencies = { 'nvim-lua/plenary.nvim', 'rafi/telescope-thesaurus.nvim' }
     },
     {
     "kylechui/nvim-surround",
@@ -75,9 +85,16 @@ vim.g.gruvbox_material_enable_italic = 1
 vim.g.gruvbox_material_cursor = 'auto'
 
 
+local spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+
+local status_ok, _ = pcall(require, "secret")
+if not status_ok then
+  print("Failed to load secret.lua")
+end
+
+
 -- Load the colorscheme
 vim.cmd("colorscheme gruvbox-material")
-
 
 
 require('base')
@@ -97,3 +114,11 @@ require('p-lualine')
 -- Set the location of the spell file
 local spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 vim.opt.spellfile = spellfile
+
+vim.o.updatetime = 250
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
+  callback = function ()
+    vim.diagnostic.open_float(nil, {focus=false})
+  end
+})
