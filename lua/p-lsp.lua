@@ -59,6 +59,24 @@ lspconfig.ltex.setup {
     settings = ltex_settings
 }
 
+-- added for quarto
+-- Setup Marksman LSP for handling markdown and quarto files
+lspconfig.marksman.setup {
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  filetypes = { "markdown", "quarto" },  -- Ensure .qmd files are treated as Quarto
+  root_dir = lspconfig.util.root_pattern(".git", ".marksman.toml", "_quarto.yml"),
+  -- Additional configuration options here
+}
+
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "*.qmd",
+  callback = function()
+    vim.bo.filetype = "markdown"
+  end,
+})
+
+
 
 --[[vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),

@@ -23,6 +23,8 @@ require("lazy").setup({
   'hrsh7th/vim-vsnip',
   'nvim-lualine/lualine.nvim',
   'L3MON4D3/LuaSnip',
+  'quarto-dev/quarto-nvim',
+  'jmbuhr/otter.nvim',
   'saadparwaiz1/cmp_luasnip',
   'nvim-treesitter/nvim-treesitter',
   "sainnhe/gruvbox-material",
@@ -31,7 +33,21 @@ require("lazy").setup({
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
   'WhoIsSethDaniel/mason-tool-installer.nvim',
+  'lervag/vimtex',
   {
+  'nvimdev/dashboard-nvim',
+  event = 'VimEnter',
+  config = function()
+    require('dashboard').setup {
+      theme='hyper',
+      config = {
+
+      }
+    }
+  end,
+  dependencies = { {'nvim-tree/nvim-web-devicons'}}
+},
+   {
  "folke/trouble.nvim",
  dependencies = { "nvim-tree/nvim-web-devicons" },
  opts = {
@@ -94,7 +110,7 @@ end
 
 
 -- Load the colorscheme
-vim.cmd("colorscheme gruvbox-material")
+vim.cmd("colorscheme everforest")
 
 
 require('base')
@@ -109,6 +125,9 @@ require('p-surround')
 require('color')
 require('p-cmp')
 require('p-lualine')
+require('p-quarto')
+require('p-dashboard')
+
 
 
 -- Set the location of the spell file
