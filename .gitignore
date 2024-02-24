@@ -1,9 +1,0 @@
-.DS_Store
-*.swp
-*.bak
-*.undo
-*.old
-session.vim
-secret.lua
-spell/
-
