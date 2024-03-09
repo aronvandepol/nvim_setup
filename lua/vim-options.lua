@@ -4,6 +4,16 @@ vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.g.mapleader = " "
 
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter", "BufRead", "BufNewFile"}, {
+  pattern = {"*.tex", "*.md", "*.qmd"},
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.list = false
+  end,
+})
+
+
 -- Navigate vim panes better
 vim.keymap.set('n', '<c-k>', ':wincmd k<CR>')
 vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
